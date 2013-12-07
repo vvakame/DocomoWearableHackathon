@@ -1,11 +1,23 @@
 package jp.ne.docomo.wearablehackathon.readingglass;
 
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.speech.RecognizerIntent;
+import android.util.Log;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RemoteViews;
 
 import com.google.android.glass.app.Card;
+import com.google.android.glass.timeline.LiveCard;
+import com.google.android.glass.timeline.LiveCardCallback;
+import com.google.android.glass.timeline.TimelineManager;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
 
