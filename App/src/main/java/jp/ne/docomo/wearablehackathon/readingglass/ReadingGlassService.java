@@ -2,6 +2,7 @@ package jp.ne.docomo.wearablehackathon.readingglass;
 
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -18,7 +19,7 @@ public class ReadingGlassService extends Service {
 
     private final TimerBinder mBinder = new TimerBinder();
 
-    private ReadingGlassDrawer mTimerDrawer;
+    private ReadingGlassDrawer mDrawer;
 
     private TimelineManager mTimelineManager;
     private LiveCard mLiveCard;
@@ -27,7 +28,7 @@ public class ReadingGlassService extends Service {
     public void onCreate() {
         super.onCreate();
         mTimelineManager = TimelineManager.from(this);
-        mTimerDrawer = new ReadingGlassDrawer();
+        mDrawer = new ReadingGlassDrawer();
     }
 
     @Override
@@ -35,32 +36,41 @@ public class ReadingGlassService extends Service {
         return mBinder;
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    private void publishCard(Context context) {
         if (mLiveCard == null) {
             mLiveCard = mTimelineManager.getLiveCard(LIVE_CARD_ID);
 
-            mLiveCard.enableDirectRendering(true).getSurfaceHolder().addCallback(mTimerDrawer);
+            mLiveCard.enableDirectRendering(true).getSurfaceHolder().addCallback(mDrawer);
             mLiveCard.setNonSilent(true);
 
+            // TODO 起動するActivityを変更する
             Intent menuIntent = new Intent(this, MainActivity.class);
             mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
 
             mLiveCard.publish();
         } else {
             // TODO(alainv): Jump to the LiveCard when API is available.
+            return;
         }
+    }
 
+    private void unpublishCard(Context context) {
+        if (mLiveCard != null && mLiveCard.isPublished()) {
+            mLiveCard.getSurfaceHolder().removeCallback(mDrawer);
+            mLiveCard.unpublish();
+            mLiveCard = null;
+        }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        publishCard(this);
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        if (mLiveCard != null && mLiveCard.isPublished()) {
-            mLiveCard.getSurfaceHolder().removeCallback(mTimerDrawer);
-            mLiveCard.unpublish();
-            mLiveCard = null;
-        }
+        unpublishCard(this);
         super.onDestroy();
     }
 }
