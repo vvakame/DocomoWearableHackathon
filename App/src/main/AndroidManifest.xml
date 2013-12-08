@@ -46,17 +46,16 @@
                 android:resource="@xml/voice_trigger_doze" />
         </service>
 
-        <service
-            android:name="jp.ne.docomo.wearablehackathon.readingglass.ReadingGlassService"
-            android:enabled="true"
-            android:exported="true">
+        <activity
+            android:name="jp.ne.docomo.wearablehackathon.readingglass.ReadingGlassActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
             </intent-filter>
             <meta-data
                 android:name="com.google.android.glass.VoiceTrigger"
                 android:resource="@xml/voice_trigger_reading_glass" />
-        </service>
+        </activity>
     </application>
 
 </manifest>
