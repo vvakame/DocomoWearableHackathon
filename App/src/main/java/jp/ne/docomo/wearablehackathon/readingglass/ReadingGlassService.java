@@ -28,7 +28,7 @@ public class ReadingGlassService extends Service {
     public void onCreate() {
         super.onCreate();
         mTimelineManager = TimelineManager.from(this);
-        mDrawer = new ReadingGlassDrawer();
+        mDrawer = new ReadingGlassDrawer(this);
     }
 
     @Override

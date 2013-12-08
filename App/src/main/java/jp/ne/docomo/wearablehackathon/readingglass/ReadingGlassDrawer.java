@@ -1,5 +1,9 @@
 package jp.ne.docomo.wearablehackathon.readingglass;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Camera;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -17,6 +21,10 @@ public class ReadingGlassDrawer implements LiveCardCallback {
 
     Camera mCamera;
 
+    // https://code.google.com/p/google-glass-api/issues/detail?id=259
+
+    public ReadingGlassDrawer(Context context) {
+    }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
@@ -93,7 +101,7 @@ public class ReadingGlassDrawer implements LiveCardCallback {
             return;
         }
         mCamera.startPreview();
-        }
+    }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
@@ -113,6 +121,7 @@ public class ReadingGlassDrawer implements LiveCardCallback {
         Log.d(TAG, "renderingPaused paused=" + paused);
 
         if (paused) {
+            Log.d(TAG, "mCamera=" + String.valueOf(mCamera));
             if (mCamera != null) {
                 mCamera.stopPreview();
                 mCamera.release();
