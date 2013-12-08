@@ -145,6 +145,8 @@ public class ReadingGlassActivity extends Activity {
         }
     }
 
+    boolean mStopped = false;
+
     private GestureDetector createGestureDetector(Context context) {
         GestureDetector gestureDetector = new GestureDetector(context);
         //Create a base listener for generic gestures
@@ -155,6 +157,18 @@ public class ReadingGlassActivity extends Activity {
                 if (gesture == Gesture.TAP) {
                     Log.d(TAG, "onGesture tap");
                     // do something on tap
+                    if (mStopped) {
+                        mCamera.startPreview();
+                        mStopped = false;
+                    } else {
+                        mCamera.takePicture(null, null, null, new Camera.PictureCallback() {
+                            @Override
+                            public void onPictureTaken(byte[] data, Camera camera) {
+                                Log.d(TAG, "onPictureTaken size=" + data.length);
+                                mStopped = true;
+                            }
+                        });
+                    }
                     return true;
                 } else if (gesture == Gesture.TWO_TAP) {
                     Log.d(TAG, "onGesture two tap");
