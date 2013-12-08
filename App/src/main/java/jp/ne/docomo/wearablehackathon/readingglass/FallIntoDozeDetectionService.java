@@ -49,7 +49,7 @@ public class FallIntoDozeDetectionService extends Service {
             mLiveCard.enableDirectRendering(true).getSurfaceHolder().addCallback(mTimerDrawer);
             mLiveCard.setNonSilent(true);
 
-            Intent menuIntent = new Intent(this, MainActivity.class);
+            Intent menuIntent = new Intent(this, CardSampleActivity.class);
             mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
 
             mLiveCard.publish();

@@ -44,7 +44,7 @@ public class ReadingGlassService extends Service {
             mLiveCard.setNonSilent(true);
 
             // TODO 起動するActivityを変更する
-            Intent menuIntent = new Intent(this, MainActivity.class);
+            Intent menuIntent = new Intent(this, CardSampleActivity.class);
             mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
 
             mLiveCard.publish();
