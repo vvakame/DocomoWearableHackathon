@@ -165,6 +165,7 @@ public class ReadingGlassActivity extends Activity {
                             @Override
                             public void onPictureTaken(byte[] data, Camera camera) {
                                 Log.d(TAG, "onPictureTaken size=" + data.length);
+                                Log.d(TAG, "onPictureTaken zoom=" + mCamera.getParameters().getZoom());
                                 mStopped = true;
                             }
                         });
