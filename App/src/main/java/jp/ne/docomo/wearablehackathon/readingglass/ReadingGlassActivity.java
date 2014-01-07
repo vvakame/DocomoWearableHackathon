@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ReadingGlassActivity extends Activity {
 
-    static final String TAG = ReadingGlassDrawer.class.getSimpleName();
+    static final String TAG = ReadingGlassActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,7 +3,6 @@
 
     <string name="app_name">ReadingGlass</string>
     <string name="hello_world">Hello world!</string>
-    <string name="use_reading_glass">use a reading glass</string>
-    <string name="detect_doze">detect doze</string>
+    <string name="reading_glass">reading glass</string>
 
 </resources>
